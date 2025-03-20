@@ -306,7 +306,7 @@ app.get('/products/filter/price', (req, res) => {
 
 //Endpoint 9 : Define an endpoint /products using the get method.Send the products array as a JSON response.
 app.get('/products', (req, res) => {
-  res.json(products);
+  res.json({products});
 });
 
 app.listen(port, () => {
