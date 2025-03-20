@@ -261,7 +261,7 @@ function filterByRam(products, ram) {
 app.get('/products/filter/ram', (req, res) => {
   let productsCopy3 = sortedProducts.slice();
   let ram = parseFloat(req.query.ram);
-  res.json(productsCopy3.filter((p) => filterByRam(p, ram)));
+  res.json({products:productsCopy3.filter((p) => filterByRam(p, ram))});
 });
 
 //Endpoint 5 : Define an endpoint /products/filter/rom using the get method.Implement a function filterByRom that returns the products if it meets the selected ROM configuration.Send the filtered products as a JSON response.//
@@ -271,7 +271,7 @@ function filterByRom(products, rom) {
 app.get('/products/filter/rom', (req, res) => {
   let productsCopy4 = sortedProducts.slice();
   let rom = parseFloat(req.query.rom);
-  res.json(productsCopy4.filter((p) => filterByRom(p, rom)));
+  res.json({products:productsCopy4.filter((p) => filterByRom(p, rom))});
 });
 
 //Endpoint 6 : Define an endpoint /products/filter/brand using the get method.Implement a function filterByBrand that returns the products for the specified brand category.While matching you convert both the values to lowercase. This will ensure that strings comparisons are case-insensitive.Use the .toLowerCase() string function.Send the filtered products as a JSON response.//
@@ -281,7 +281,7 @@ function filterByBrand(products, brand) {
 app.get('/products/filter/brand', (req, res) => {
   let productsCopy5 = sortedProducts.slice();
   let brand = req.query.brand;
-  res.json(productsCopy5.filter((p) => filterByBrand(p, brand)));
+  res.json({products:productsCopy5.filter((p) => filterByBrand(p, brand))});
 });
 
 //Endpoint 7 : Define an endpoint /products/filter/os using the get method.Implement a function filterByOs that returns the products for the specified OS configuration.While matching you convert both the values to lowercase. This will ensure that strings comparisons are case-insensitive.Use the .toLowerCase() string function.Send the filtered products as a JSON response.//
@@ -291,7 +291,7 @@ function filterByOs(products, os) {
 app.get('/products/filter/os', (req, res) => {
   let productsCopy6 = sortedProducts.slice();
   let os = req.query.os;
-  res.json(productsCopy6.filter((p) => filterByOs(p, os)));
+  res.json({products:productsCopy6.filter((p) => filterByOs(p, os))});
 });
 
 //Endpoint 8: Define an endpoint /products/filter/price using the get method.Implement a function filterByPrice that returns the products for the products less than or equal to the specified price filter.Send the filtered products as a JSON response.//
@@ -301,7 +301,7 @@ function filterByPrice(products, price) {
 app.get('/products/filter/price', (req, res) => {
   let productsCopy7 = sortedProducts.slice();
   let price = parseFloat(req.query.price);
-  res.json(productsCopy7.filter((p) => filterByPrice(p, price)));
+  res.json({products:productsCopy7.filter((p) => filterByPrice(p, price))});
 });
 
 //Endpoint 9 : Define an endpoint /products using the get method.Send the products array as a JSON response.
