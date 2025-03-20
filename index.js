@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 app.use(cors());
 
-let products = [
+let sortedProducts = [
   {
     id: 1,
     name: 'Xiaomi iPhone 12',
@@ -228,12 +228,12 @@ let products = [
 ];
 
 //Endpoint 1 : Define an endpoint /products/sort/popularity using the get method.Define a variable sortedProducts to create a condition to sort the products on their ratings (high to low).Send the filtered products as a JSON response.//
-const sortedProducts = (products) => {
+const sortedProductsLowToHigh = (products) => {
   return products.sort((a, b) => b.rating - a.rating);
 };
 app.get('/products/sort/popularity', (req, res) => {
-  let productsCopy = products.slice();
-  res.json(sortedProducts(productsCopy));
+  let productsCopy = sortedProducts.slice();
+  res.json({products:sortedProductsLowToHigh(productsCopy)});
 });
 
 //Endpoint 2 : Define an endpoint /products/sort/price-high-to-low using the get method.Define a variable sortedProducts to create a condition to sort the products on their pricing (high to low).Send the filtered products as a JSON response.//
@@ -241,8 +241,8 @@ const sortedProductsByPrice = (products) => {
   return products.sort((a, b) => b.price - a.price);
 };
 app.get('/products/sort/price-high-to-low', (req, res) => {
-  let productsCopy1 = products.slice();
-  res.json(sortedProductsByPrice(productsCopy1));
+  let productsCopy1 = sortedProducts.slice();
+  res.json({products:sortedProductsByPrice(productsCopy1)});
 });
 
 //Endpoint 3 : Define an endpoint /products/sort/price-low-to-high using the get method.Define a variable sortedProducts to create a condition to sort the products on their pricing ( low to high).Send the filtered products as a JSON response.//
@@ -250,8 +250,8 @@ const sortedProductsByPriceLowToHigh = (products) => {
   return products.sort((a, b) => a.price - b.price);
 };
 app.get('/products/sort/price-low-to-high', (req, res) => {
-  let productsCopy2 = products.slice();
-  res.json(sortedProductsByPriceLowToHigh(productsCopy2));
+  let productsCopy2 = sortedProducts.slice();
+  res.json({products:sortedProductsByPriceLowToHigh(productsCopy2)});
 });
 
 //Endpoint 4 : Define an endpoint /products/filter/ram using the get method.Implement a function filterByRam that returns the products if it meets the selected RAM configuration.Send the filtered products as a JSON response.//
@@ -259,7 +259,7 @@ function filterByRam(products, ram) {
   return products.ram === ram;
 }
 app.get('/products/filter/ram', (req, res) => {
-  let productsCopy3 = products.slice();
+  let productsCopy3 = sortedProducts.slice();
   let ram = parseFloat(req.query.ram);
   res.json(productsCopy3.filter((p) => filterByRam(p, ram)));
 });
@@ -269,7 +269,7 @@ function filterByRom(products, rom) {
   return products.rom === rom;
 }
 app.get('/products/filter/rom', (req, res) => {
-  let productsCopy4 = products.slice();
+  let productsCopy4 = sortedProducts.slice();
   let rom = parseFloat(req.query.rom);
   res.json(productsCopy4.filter((p) => filterByRom(p, rom)));
 });
@@ -279,7 +279,7 @@ function filterByBrand(products, brand) {
   return products.brand.toLowerCase() === brand.toLowerCase();
 }
 app.get('/products/filter/brand', (req, res) => {
-  let productsCopy5 = products.slice();
+  let productsCopy5 = sortedProducts.slice();
   let brand = req.query.brand;
   res.json(productsCopy5.filter((p) => filterByBrand(p, brand)));
 });
@@ -289,7 +289,7 @@ function filterByOs(products, os) {
   return products.os.toLowerCase() === os.toLowerCase();
 }
 app.get('/products/filter/os', (req, res) => {
-  let productsCopy6 = products.slice();
+  let productsCopy6 = sortedProducts.slice();
   let os = req.query.os;
   res.json(productsCopy6.filter((p) => filterByOs(p, os)));
 });
@@ -299,14 +299,14 @@ function filterByPrice(products, price) {
   return products.price <= price;
 }
 app.get('/products/filter/price', (req, res) => {
-  let productsCopy7 = products.slice();
+  let productsCopy7 = sortedProducts.slice();
   let price = parseFloat(req.query.price);
   res.json(productsCopy7.filter((p) => filterByPrice(p, price)));
 });
 
 //Endpoint 9 : Define an endpoint /products using the get method.Send the products array as a JSON response.
 app.get('/products', (req, res) => {
-  res.json({products});
+  res.json({ products: sortedProducts });
 });
 
 app.listen(port, () => {
